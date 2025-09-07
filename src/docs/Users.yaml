@@ -1,0 +1,135 @@
+paths:
+  /api/users/:
+    get:
+      summary: The list of users was successfully obtained from the database.
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Users list get from database.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+        "500":
+          description: rror internal server.
+
+  /api/users/{uid}:
+      get:
+        summary: Get a user by ID.
+        tags:
+          - Users
+        parameters:
+        - name: uid
+          in: path
+          required: true
+          description: The user ID being requested.
+          schema:
+            type: string          
+        responses:
+          "200":
+            description: Retrieve a user from the database based on the uid sent as a parameter in the route.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/User'
+          "404":
+            description: User not found
+          "500":
+            description: Error internal server.
+      
+      put:
+        summary: Updates a user by ID.
+        tags:
+          - Users
+        parameters:
+          - name: uid
+            in: path
+            required: true
+            description: User ID to update.
+            schema:
+              type: string
+        requestBody:
+          required: true
+          content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/User'
+        responses:
+          "200":
+            description: User Updated Correctly.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/User'
+          "404":
+            description: User not found
+          "500":
+            description: Error internal server.
+
+      delete:
+        summary: Delete a user by ID.
+        tags:
+          - Users
+        parameters:
+          - name: uid
+            in: path
+            required: true
+            description: User ID to delete.
+        schema:
+              type: string
+        responses:
+          "200":
+            description: User delete Correctly.
+          "404":
+            description: User not found
+          "500":
+            description: Error internal server.
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerate of mongo
+        first_name:
+          type: string
+          description: Name of the User
+        last_name:
+          type: string
+          description: Last name of the User 
+        email:
+          type: string
+          description: Email name of the User
+        password: 
+          type: string
+          description: Password of the User
+        role: 
+          type: string
+          description: rol of the users
+        pets:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                description: IdAssociated pet ID  
+      example:
+        _id: ObjectId("60acc54545c8e82e0475f73a")
+        first_name: Marcelo
+        last_name: Gallardo
+        email: gallardom@river.com
+        password: gallardom
+        role: user
+        pets: []
+
