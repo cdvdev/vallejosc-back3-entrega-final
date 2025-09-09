@@ -1,0 +1,108 @@
+paths:
+  /api/adoptions/:
+    get:
+      summary: List all adoption obtained from the database.
+      tags:
+        - Adoption
+      responses:
+        "200":
+          description: Get all adoption.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Adoption'
+        "500":
+          description: error internal server.
+
+  /api/adoptions/{uid}:
+    get:
+      summary: Get a adoption by ID.
+      tags:
+        - Adoption
+      parameters:
+        - name: aid
+          in: path
+          required: true
+          description: The adoption ID being requested.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Retrieve a adoption from the database based on the uid sent as a parameter in the route.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Adoption'
+        "500":
+          description: error internal server.
+  
+  /api/adoptions/{uid}/{pid}:
+    post:
+      summary: Get a adoption by ID.
+      tags:
+        - Adoption
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: The user ID being requested.
+        - name: pid
+          in: path
+          required: true
+          description: The pet ID being requested. 
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Create a adoption to the database based on the uid sent as a parameter in the route.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Adoption'
+        "500":
+          description: error internal server.
+
+components:
+  schemas:
+    Adoption:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Autogenerate ID of the adoption (MongoDB ObjectId).
+          example: "64f1a2c9b4e4f0b9c0d12345"
+        owner:
+          type: string
+          description: User ID who adopted the pet (MongoDB ObjectId).
+          example: "64f1a2c9b4e4f0b9c0d12345"
+        pets:
+          type: array
+          description: Adopted ID pet (MongoDB ObjectId).
+          example: "64f1a2c9b4e4f0b9c0d12345"
+      required:
+        - owner
+        - pets    

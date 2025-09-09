@@ -31,7 +31,7 @@ paths:
         - name: uid
           in: path
           required: true
-          description: The user ID being requested.
+          description: The pet ID being requested.
           schema:
             type: string          
         responses:

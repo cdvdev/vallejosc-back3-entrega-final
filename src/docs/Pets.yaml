@@ -1,0 +1,171 @@
+paths:
+  /api/pets/:
+    get:
+      summary: List all pets obtained from the database.
+      tags:
+        - Pet
+      responses:
+        "200":
+          description: Get all pets.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Pet'
+        "500":
+          description: error internal server.
+
+/api/pets/:
+    post:
+      summary: Create a new pet and save to database.
+      tags:
+        - Pet
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+            $ref: '#/components/schemas/PetInput'
+      responses:
+        "200":
+          description: Pets successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                      $ref: '#/components/schemas/Pet'
+        "400":
+          description: Incomplete values (missing name, specie or  birthDate)
+        "500":
+          description: error internal server.
+
+/api/pets/{pid}:
+    put:
+      summary: Updated a pet and saved into database.
+      tags:
+        - Pet
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: The pet ID being requested.
+        schema: 
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PetUpdate"
+      responses:
+        "200":
+          description: Pets updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    example: "pet update"
+        "400":
+          description: Incomplete values (missing name, specie or  birthDate)
+        "500":
+          description: error internal server.
+
+
+
+
+
+components:
+  schemas:
+    PetUpdate:
+      type: 
+      properties:
+        name:
+          type: string
+          description: Pet name.
+          example: "Lelos"
+        specie:
+          type: string
+          description: Pet name.
+          example: "Lelos"
+        birthDate:
+          type: string
+          format: date
+          example: "2022-01-12"
+        image:
+          image:
+          type: string
+          description: Image URL of the Pet
+          example: "https://cdn.mypets.com/lolo.png"
+
+
+    PetInput:
+      type:
+      properties:
+        name: 
+          type: string
+          description: Pet name.
+          example: "Lelos"
+        specie:
+          type: string
+          description: Specie of the Pet.
+          example: "Crocodile"
+        birthDate:
+          type: string
+          format: date
+          example: "2022-01-12"
+        required:
+        - name
+        - specie 
+        - birthDate
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Autogenerate ID of the adoption (MongoDB ObjectId).
+          example: "64f1a2c9b4e4f0b9c0d12345"
+        name:
+          type: string
+          description: Pet name.
+          example: "Lolo"
+        specie:
+          type: string
+          description: Spacie.
+          example: "Crocodile"
+        birthDate:
+          type: string
+          format: data
+          description: Birth date of the Pet
+          example: "2022-09-12"
+        adopted:
+          type: boolean
+          description: Adopted yes or not.
+          example: true
+        owner:
+          type: string
+          description: User ID (MongoDB ObjectId).
+          example: "64f1a2c9b4e4f0b9c0d12345"
+        image:
+          type: string
+          description: Image URL of the Pet
+          example: "https://cdn.mypets.com/lolo.png"
+      required:
+        - name 
+        - specie   
