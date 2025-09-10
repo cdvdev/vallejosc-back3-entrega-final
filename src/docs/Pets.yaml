@@ -114,7 +114,6 @@ components:
           description: Image URL of the Pet
           example: "https://cdn.mypets.com/lolo.png"
 
-
     PetInput:
       type:
       properties:

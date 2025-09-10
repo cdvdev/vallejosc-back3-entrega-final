@@ -31,7 +31,7 @@ paths:
         - name: uid
           in: path
           required: true
-          description: The pet ID being requested.
+          description: The Users ID being requested.
           schema:
             type: string          
         responses:
@@ -62,7 +62,7 @@ paths:
           content:
               application/json:
                 schema:
-                  $ref: '#/components/schemas/User'
+                  $ref: '#/components/schemas/UserUpdate'
         responses:
           "200":
             description: User Updated Correctly.
@@ -84,8 +84,8 @@ paths:
             in: path
             required: true
             description: User ID to delete.
-        schema:
-              type: string
+            schema:
+                  type: string
         responses:
           "200":
             description: User delete Correctly.
@@ -93,29 +93,36 @@ paths:
             description: User not found
           "500":
             description: Error internal server.
+
 components:
   schemas:
     User:
       type: object
       properties:
         _id:
-          type: ObjectId
-          description: Id autogenerate of mongo
+          type: string
+          description: Id autogenerate of mongo.
+          example: "60acc54545c8e82e0475f73a"
         first_name:
           type: string
           description: Name of the User
+          example: Marcelo
         last_name:
           type: string
-          description: Last name of the User 
+          description: Last name of the User.
+          example: Gallardo
         email:
           type: string
-          description: Email name of the User
+          description: Email name of the User.
+          example: gallardom@river.com
         password: 
           type: string
-          description: Password of the User
+          description: Password of the User.
+          example: gallardom
         role: 
           type: string
-          description: rol of the users
+          description: rol of the users.
+          example: user
         pets:
           type: array
           items:
@@ -124,12 +131,27 @@ components:
               _id:
                 type: string
                 description: IdAssociated pet ID  
-      example:
-        _id: ObjectId("60acc54545c8e82e0475f73a")
-        first_name: Marcelo
-        last_name: Gallardo
-        email: gallardom@river.com
-        password: gallardom
-        role: user
-        pets: []
+          example: 
+            pets: []
+
+    UserUpdate:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: Name of the User.
+          example: "John"
+        last_name:
+          type: string
+          description: Last name of the User 
+          example: "Lee"
+        email:
+          type: string
+          description: Email name of the User
+          example: "leej@gmai.components"
+        password: 
+          type: string
+          description: Password of the User 
+          example: "123" 
+
 
