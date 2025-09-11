@@ -18,8 +18,7 @@ Desarrollo del backend para documentar las rutas de la API con la herrameito Swa
 - **Pruebas funcinales:** Implementación de las pruebas funcionales. 
 
 - **Contenedores con Docker:** Implementar contenedores, crear una imagen y subirla a Docker Hub.
-
-docker.io/cdv1982/image-node-v22:latest
+https://hub.docker.com/r/cdv1982/image-node-v22
 
 - **Despligue en Render:** Implementa
 https://vallejosc-back3-entrega-final.onrender.com/documentation/
